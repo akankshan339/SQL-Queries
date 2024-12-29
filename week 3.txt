@@ -1,0 +1,211 @@
+week 3
+SQL> connect
+Enter user-name: AkankshaNegi_5
+Enter password:
+Connected.
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  create table Employee(empid number PRIMARY KEY, empName varchar2(10), dept varchar2(20), age number CONSTRAINT chk_age CHECK(age >18), sal number, city varchar2(10));
+
+Table created.
+
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Employee(empId, empName, dept, age, sal, city) values(1, 'Kiarn', 'Comp Science', 20, 80000, 'Kashipur')
+  3  into Employee(empId, empName, dept, age, sal, city) values(2, 'Akanksha', 'Finance', 22, 50000, 'Pauri')
+  4  into Employee(empId, empName, dept, age, sal, city) values(3, 'Gunjan', 'BioTech', 2, 60000, 'Kotdwar')
+  5  into Employee(empId, empName, dept, age, sal, city) values(4, 'Shikha', 'Finance', 24, 75000, 'Lucknow')
+  6  into Employee(empId, empName, dept, age, sal, city) values(5, 'Mansi', 'Comp _Science', 25, 55000, 'Rampur')
+  7  select* from dual;
+insert all
+*
+ERROR at line 1:
+ORA-02290: check constraint (AKANKSHANEGI_5.CHK_AGE) violated
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Employee(empId, empName, dept, age, sal, city) values(1, 'Kiarn', 'Comp Science', 20, 80000, 'Kashipur')
+  3  into Employee(empId, empName, dept, age, sal, city) values(2, 'Akanksha', 'Finance', 22, 50000, 'Pauri')
+  4   into Employee(empId, empName, dept, age, sal, city) values(3, 'Gunjan', 'BioTech', 21, 60000, 'Kotdwar')
+  5  into Employee(empId, empName, dept, age, sal, city) values(4, 'Shikha', 'Finance', 24, 75000, 'Lucknow')
+  6  into Employee(empId, empName, dept, age, sal, city) values(5, 'Mansi', 'Comp _Science', 25, 55000, 'Rampur')
+  7  select* from dual;
+
+5 rows created.
+
+SQL> select* from Employee;
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         1 Kiarn      Comp Science                 20      80000 Kashipur
+         2 Akanksha   Finance                      22      50000 Pauri
+         3 Gunjan     BioTech                      21      60000 Kotdwar
+         4 Shikha     Finance                      24      75000 Lucknow
+         5 Mansi      Comp _Science                25      55000 Rampur
+
+
+SQL> select* from Employee where age > 22;
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         4 Shikha     Finance                      24      75000 Lucknow
+         5 Mansi      Comp _Science                25      55000 Rampur
+
+SQL> select empId, empname, dept from Employee where sal >= 50000;
+
+     EMPID EMPNAME    DEPT
+---------- ---------- --------------------
+         1 Kiarn      Comp Science
+         2 Akanksha   Finance
+         3 Gunjan     BioTech
+         4 Shikha     Finance
+         5 Mansi      Comp _Science
+
+SQL> update table Employee column age where id = 2 with sal = 30000;
+update table Employee column age where id = 2 with sal = 30000
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update Employee sal = 20000 where empId = 5;
+update Employee sal = 20000 where empId = 5
+                    *
+ERROR at line 1:
+ORA-00971: missing SET keyword
+
+
+SQL> update Employee SET sal = 20000 where empId = 5;
+
+1 row updated.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee;
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         1 Kiarn      Comp Science                 20      80000 Kashipur
+         2 Akanksha   Finance                      22      50000 Pauri
+         3 Gunjan     BioTech                      21      60000 Kotdwar
+         4 Shikha     Finance                      24      75000 Lucknow
+         5 Mansi      Comp _Science                25      20000 Rampur
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee where age > 22;
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         4 Shikha     Finance                      24      75000 Lucknow
+         5 Mansi      Comp _Science                25      20000 Rampur
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empId, empName, dept where sal >= 50000;
+select empId, empName, dept where sal >= 50000
+                            *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empId, empname, dept from Employee where sal >= 50000;
+
+     EMPID EMPNAME    DEPT
+---------- ---------- --------------------
+         1 Kiarn      Comp Science
+         2 Akanksha   Finance
+         3 Gunjan     BioTech
+         4 Shikha     Finance
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName from Employee where dept = Finance and age = 22;
+select empName from Employee where dept = Finance and age = 22
+                                          *
+ERROR at line 1:
+ORA-00904: "FINANCE": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName from Employee where dept = 'Finance' and age = 22;
+
+EMPNAME
+----------
+Akanksha
+
+                             *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName as 'Full Name' from Employee where dept = 'Finance' and age = 22;
+select empName as 'Full Name' from Employee where dept = 'Finance' and age = 22
+                  *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName as "Full Name" from Employee where dept = "Finance" and age = 22;
+select empName as "Full Name" from Employee where dept = "Finance" and age = 22
+                                                         *
+ERROR at line 1:
+ORA-00904: "Finance": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName as "Full Name" from Employee where dept = 'Finance' and age = 22;
+
+Full Name
+----------
+Akanksha
+
+
+ORA-00936: missing expression
+
+
+SQL> SELECT empName AS "Full Name", empID, empName, dept, age, salary -- List all the columns you want to select
+  2  FROM Employee
+  3  WHERE dept = 'Finance'
+  4  AND age = 22;
+SELECT empName AS "Full Name", empID, empName, dept, age, salary -- List all the columns you want to select
+                                                          *
+ERROR at line 1:
+ORA-00904: "SALARY": invalid identifier
+
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select DISTINCT dept from Employee;
+
+DEPT
+--------------------
+Comp _Science
+BioTech
+Comp Science
+Finance
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  select empName AS "Full Name", empId, dept, age, sal, city from Employee where dept = 'Finance' and age = 22;
+
+Full Name       EMPID DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+Akanksha            2 Finance                      22      50000 Pauri

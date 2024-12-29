@@ -1,0 +1,521 @@
+
+SQL> connect sys as sysdba
+Enter password:
+Connected.
+SQL> connect
+Enter user-name: AkankshaNegi_5
+Enter password:1235
+Connected.
+SQL> drop table Doctor;
+drop table Doctor
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys
+
+
+SQL> drop table medication
+  2  ;
+
+Table dropped.
+
+SQL> drop table ward;
+
+Table dropped.
+
+SQL> drop table bills;
+
+Table dropped.
+
+SQL> drop table patient;
+
+Table dropped.
+
+SQL> drop table doctor;
+
+Table dropped.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Doctor(docId number PRIMARY KEY, docName varchar2(10), specilization varchar2(10), docSal number);
+
+Table created.
+
+SQL> create table Patient(patId number PRIMARY KEY, patName varchar2(10), age number, gender varchar2(6), disease varchar2(10), docId number, FOREIGN KEY (docId) REFERENCES Doctor(docId));
+
+Table created.
+
+SQL> create table Bills(billId number PRIMARY KEY, amt number, status varchar2(10), BillDate varchar2(10), patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+
+Table created.
+
+SQL> create table Ward(wardNo number, capacity number, wardType varchar2(10),  patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+
+Table created.
+
+SQL> create table Medication(medName varchar2(20), dosage number, stdate DATE , endDate DATE, patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+
+Table created.
+
+SQL> INSERT INTO Doctor(docId, docName, specialization, docSal) VALUES (1, 'Dr.Vikram', 'Cardio', 30000);
+INSERT INTO Doctor(docId, docName, specialization, docSal) VALUES (1, 'Dr.Vikram', 'Cardio', 30000)
+                                   *
+ERROR at line 1:
+ORA-00904: "SPECIALIZATION": invalid identifier
+
+
+SQL> INSERT INTO Doctor(docId, docName, specilization, docSal) VALUES (1, 'Dr.Vikram', 'Cardio', 30000);
+
+1 row created.
+
+SQL> INSERT INTO Doctor(docId, docName, specilization, docSal) VALUES (2, 'Dr.Mehta', 'Neuro', 10000);
+
+1 row created.
+
+SQL> INSERT INTO Doctor(docId, docName, specilization, docSal) VALUES (3, 'Dr.Shilpi', 'Gyneco', 20000);
+
+1 row created.
+
+SQL> select* from Doctor;
+
+     DOCID DOCNAME    SPECILIZAT     DOCSAL
+---------- ---------- ---------- ----------
+         1 Dr.Vikram  Cardio          30000
+         2 Dr.Mehta   Neuro           10000
+         3 Dr.Shilpi  Gyneco          20000
+
+SQL> insert all
+  2  into Patient(patId, patName, age, gender, disease, docId) values(6, 'Mohit', 19, 'Male', 'barincell', 1)
+  3  into Patient(patId, patName, age, gender, disease, docId) values(7, 'Reema', 27, 'Female', 'canser', 3)
+  4  into Patient(patId, patName, age, gender, disease, docId) values(6, 'Mohit', 19, 'Male', 'barincell', 1)
+  5  select* from dual;
+insert all
+*
+ERROR at line 1:
+ORA-00001: unique constraint (AKANKSHANEGI_5.SYS_C007068) violated
+
+
+SQL> insert all
+  2   into Patient(patId, patName, age, gender, disease, docId) values(6, 'Mohit', 19, 'Male', 'barincell', 2)
+  3  into Patient(patId, patName, age, gender, disease, docId) values(7, 'Reema', 27, 'Female', 'canser', 3)
+  4  into Patient(patId, patName, age, gender, disease, docId) values(6, 'Mohit', 19, 'Male', 'barincell', 1)
+  5  select* from dual;
+insert all
+*
+ERROR at line 1:
+ORA-00001: unique constraint (AKANKSHANEGI_5.SYS_C007068) violated
+
+
+SQL> insert all
+  2  into Patient(patId, patName, age, gender, disease, docId) values(6, 'Mohit', 19, 'Male', 'braincell', 2)
+  3  into Patient(patId, patName, age, gender, disease, docId) values(7, 'Reema', 27, 'Female', 'cancer', 3)
+  4   into Patient(patId, patName, age, gender, disease, docId) values(8, 'Ritik', 45, 'Male', 'heart_att', 1)
+  5  select* from dual;
+
+3 rows created.
+
+SQL> select* from Patient;
+
+     PATID PATNAME           AGE GENDER DISEASE         DOCID
+---------- ---------- ---------- ------ ---------- ----------
+         6 Mohit              19 Male   braincell           2
+         7 Reema              27 Female cancer              3
+         8 Ritik              45 Male   heart_att           1
+
+SQL> insert all
+  2  into Bills(billId, amt, status, billDate, patId) values(11, 8000, 'paid', '13 sep', 1)
+  3  into Bills(billId, amt, status, billDate, patId) values(12, 1200, 'not paid', '8 june', 3)
+  4   into Bills(billId, amt, status, billDate, patId) values(13, 7800, 'paid', '23 aug', 2)
+  5  select* from dual;
+insert all
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (AKANKSHANEGI_5.SYS_C007071) violated - parent
+key not found
+
+
+SQL> insert all
+  2   into Bills(billId, amt, status, billDate, patId) values(11, 8000, 'paid', '13 sep', 1)
+  3  into Bills(billId, amt, status, billDate, patId) values(12, 1200, 'not paid', '8 june', 3)
+  4  into Bills(billId, amt, status, billDate, patId) values(13, 7800, 'paid', '23 aug', 2)
+  5  select* from dual;
+insert all
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (AKANKSHANEGI_5.SYS_C007071) violated - parent
+key not found
+
+
+SQL> INSERT ALL
+  2    INTO Bills(billId, amt, status, billDate, patId) VALUES (11, 8000, 'paid', '13 Sep', 1)
+  3    INTO Bills(billId, amt, status, billDate, patId) VALUES (12, 1200, 'not paid', '8 June', 3)
+  4    INTO Bills(billId, amt, status, billDate, patId) VALUES (13, 7800, 'paid', '23 Aug', 2)
+  5  SELECT * FROM dual;
+INSERT ALL
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (AKANKSHANEGI_5.SYS_C007071) violated - parent
+key not found
+
+
+SQL> INSERT ALL
+  2    INTO Bills(billId, amt, status, billDate, patId) VALUES (11, 8000, 'paid', '13 Sep', 6)
+  3    INTO Bills(billId, amt, status, billDate, patId) VALUES (12, 1200, 'not paid', '8 June', 8)
+  4    INTO Bills(billId, amt, status, billDate, patId) VALUES (13, 7800, 'paid', '23 Aug', 7)
+  5  SELECT * FROM dual;
+
+3 rows created.
+
+SQL> select* from Bills;
+
+    BILLID        AMT STATUS     BILLDATE        PATID
+---------- ---------- ---------- ---------- ----------
+        11       8000 paid       13 Sep              6
+        12       1200 not paid   8 June              8
+        13       7800 paid       23 Aug              7
+
+SQL> insert all
+  2  into Ward(wardNo, capacity, wardType, patId) values(16, 100, 'ICU', 8)
+  3  into Ward(wardNo, capacity, wardType, patId) values(17, 200, 'sugical',6)
+  4  into Ward(wardNo, capacity, wardType, patId) values(18, 150, 'maternity',7)
+  5  select* from dual;
+
+3 rows created.
+
+SQL> truncate table Ward;
+
+Table truncated.
+
+SQL> select* from Ward;
+
+no rows selected
+
+SQL> truncate tablel Bills;
+truncate tablel Bills
+                *
+ERROR at line 1:
+ORA-03290: Invalid truncate command - missing CLUSTER or TABLE keyword
+
+
+SQL> truncate table Bills;
+
+Table truncated.
+
+SQL> truncate table Patient;
+truncate table Patient
+               *
+ERROR at line 1:
+ORA-02266: unique/primary keys in table referenced by enabled foreign keys
+
+
+SQL> truncate table Doctor;
+truncate table Doctor
+               *
+ERROR at line 1:
+ORA-02266: unique/primary keys in table referenced by enabled foreign keys
+
+
+SQL> drop table Patient;
+drop table Patient
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys
+
+
+SQL> drop table ward;
+
+Table dropped.
+
+SQL> drop table  Bills;
+
+Table dropped.
+
+SQL> drop table Patient;
+drop table Patient
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys
+
+
+SQL> drop table Doctor;
+drop table Doctor
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys
+
+
+SQL> Rollback;
+
+Rollback complete.
+
+SQL> select* from Doctor;
+
+     DOCID DOCNAME    SPECILIZAT     DOCSAL
+---------- ---------- ---------- ----------
+         1 Dr.Vikram  Cardio          30000
+         2 Dr.Mehta   Neuro           10000
+         3 Dr.Shilpi  Gyneco          20000
+
+SQL> drop table Doctor;
+drop table Doctor
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys
+
+
+SQL> ROllback;
+
+Rollback complete.
+
+SQL> Rollback;
+
+Rollback complete.
+
+SQL> select* from Doctor;
+
+     DOCID DOCNAME    SPECILIZAT     DOCSAL
+---------- ---------- ---------- ----------
+         1 Dr.Vikram  Cardio          30000
+         2 Dr.Mehta   Neuro           10000
+         3 Dr.Shilpi  Gyneco          20000
+
+SQL> drop table Patient;
+drop table Patient
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys
+
+
+SQL> DROP TABLE Patient CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> drop table Doctor cascade constraints;
+
+Table dropped.
+
+SQL> show user;
+USER is "AKANKSHANEGI_5"
+SQL>  create table Doctor(docId number PRIMARY KEY, docName varchar2(10), specilization varchar2(10), docSal number);
+
+Table created.
+
+SQL>  create table Patient(patId number PRIMARY KEY, patName varchar2(10), age number, gender varchar2(6), disease varchar2(10), docId number, FOREIGN KEY (docId) REFERENCES Doctor(docId));
+
+Table created.
+
+SQL> create table Bills(billId number PRIMARY KEY, amt number, status varchar2(10), BillDate varchar2(10), patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+
+Table created.
+
+SQL> create table Ward(wardNo number, capacity number, wardType varchar2(10),  patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+
+Table created.
+
+SQL>  create table Medication(medName varchar2(20), dosage number, stdate DATE , endDate DATE, patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+ create table Medication(medName varchar2(20), dosage number, stdate DATE , endDate DATE, patId number, FOREIGN KEY (patId) REFERENCES Patient(patId))
+              *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> drop table Medication;
+
+Table dropped.
+
+SQL> drop table bills;
+
+Table dropped.
+
+SQL> drop table ward;
+
+Table dropped.
+
+SQL> drop table patient;
+
+Table dropped.
+
+SQL> drop table doctor;
+
+Table dropped.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Doctor(docId number PRIMARY KEY, docName varchar2(10), specilization varchar2(10), docSal number);
+
+Table created.
+
+SQL>  create table Patient(patId number PRIMARY KEY, patName varchar2(10), age number, gender varchar2(6), disease varchar2(10), docId number, FOREIGN KEY (docId) REFERENCES Doctor(docId));
+
+Table created.
+
+SQL> create table Bills(billId number PRIMARY KEY, amt number, status varchar2(10), BillDate varchar2(10), patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+
+Table created.
+
+SQL> create table Ward(wardNo number, capacity number, wardType varchar2(10),  patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+
+Table created.
+
+SQL> create table Medication(medName varchar2(20), dosage number, stdate DATE , endDate DATE, patId number, FOREIGN KEY (patId) REFERENCES Patient(patId));
+
+Table created.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> INSERT INTO Doctor(docId, docName, specilization, docSal) VALUES (1, 'Dr.Vikram', 'Cardio', 30000);
+
+1 row created.
+
+SQL> INSERT INTO Doctor(docId, docName, specilization, docSal) VALUES (2, 'Dr.Mehta', 'Neuro', 10000);
+
+1 row created.
+
+SQL>  INSERT INTO Doctor(docId, docName, specilization, docSal) VALUES (3, 'Dr.Shilpi', 'Gyneco', 20000);
+
+1 row created.
+
+SQL> select* from Doctor;
+
+     DOCID DOCNAME    SPECILIZAT     DOCSAL
+---------- ---------- ---------- ----------
+         1 Dr.Vikram  Cardio          30000
+         2 Dr.Mehta   Neuro           10000
+         3 Dr.Shilpi  Gyneco          20000
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Patient(patId, patName, age, gender, disease, docId) values(6, 'Mohit', 19, 'Male', 'braincell', 2)
+  3  into Patient(patId, patName, age, gender, disease, docId) values(7, 'Reema', 27, 'Female', 'cancer', 3)
+  4  into Patient(patId, patName, age, gender, disease, docId) values(8, 'Ritik', 45, 'Male', 'heart_att', 1)
+  5  select* from dual;
+
+3 rows created.
+
+SQL> select* from Patient;
+
+     PATID PATNAME           AGE GENDER DISEASE         DOCID
+---------- ---------- ---------- ------ ---------- ----------
+         6 Mohit              19 Male   braincell           2
+         7 Reema              27 Female cancer              3
+         8 Ritik              45 Male   heart_att           1
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  INTO Bills(billId, amt, status, billDate, patId) VALUES (11, 8000, 'paid', '13 Sep', 6)
+  3  INTO Bills(billId, amt, status, billDate, patId) VALUES (12, 1200, 'not paid', '8 June', 8)
+  4  INTO Bills(billId, amt, status, billDate, patId) VALUES (13, 7800, 'paid', '23 Aug', 7)
+  5  select* from dual;
+
+3 rows created.
+
+SQL> select* from Bills;
+
+    BILLID        AMT STATUS     BILLDATE        PATID
+---------- ---------- ---------- ---------- ----------
+        11       8000 paid       13 Sep              6
+        12       1200 not paid   8 June              8
+        13       7800 paid       23 Aug              7
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Ward(wardNo, capacity, wardType, patId) values(16, 100, 'ICU', 8)
+  3  into Ward(wardNo, capacity, wardType, patId) values(17, 200, 'sugical',6)
+  4  into Ward(wardNo, capacity, wardType, patId) values(18, 150, 'maternity',7)
+  5  select* from dual;
+
+3 rows created.
+
+SQL> select* from Ward;
+
+    WARDNO   CAPACITY WARDTYPE        PATID
+---------- ---------- ---------- ----------
+        16        100 ICU                 8
+        17        200 sugical             6
+        18        150 maternity           7
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Medication(medName, dosage, stDate, endDate, patId)
+  3  VALUES ('Aspirin', 100, TO_DATE('2023-09-01', 'YYYY-MM-DD'), TO_DATE('2023-09-10', 'YYYY-MM-DD'), 6)
+  4  into Medication(medName, dosage, stDate, endDate, patId) values('Ibuprofen', 200, TO_DATE('2024-01-05', 'YYYY-MM-DD'), TO_DATE('2024-01-15', 'YYYY-MM-DD'), 7);
+into Medication(medName, dosage, stDate, endDate, patId) values('Ibuprofen', 200, TO_DATE('2024-01-05', 'YYYY-MM-DD'), TO_DATE('2024-01-15', 'YYYY-MM-DD'), 7)
+                                                                                                                                                             *
+ERROR at line 4:
+ORA-00928: missing SELECT keyword
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Medication(medName, dosage, stDate, endDate, patId) values('Aspirin', 100, TO_DATE('2023-09-01', 'YYYY-MM-DD'), TO_DATE('2023-09-10', 'YYYY-MM-DD'), 6)
+  3  into Medication(medName, dosage, stDate, endDate, patId) values('Ibuprofen', 20, TO_DATE('2024-01-05', 'YYYY-MM-DD'), TO_DATE('2024-01-15', 'YYYY-MM-DD'), 7);
+into Medication(medName, dosage, stDate, endDate, patId) values('Ibuprofen', 20, TO_DATE('2024-01-05', 'YYYY-MM-DD'), TO_DATE('2024-01-15', 'YYYY-MM-DD'), 7)
+                                                                                                                                                            *
+ERROR at line 3:
+ORA-00928: missing SELECT keyword
+
+
+SQL> INSERT ALL
+  2    INTO Medication(medName, dosage, stDate, endDate, patId) VALUES ('Aspirin', 100, TO_DATE('2023-09-01', 'YYYY-MM-DD'), TO_DATE('2023-09-10', 'YYYY-MM-DD'), 6)
+  3    INTO Medication(medName, dosage, stDate, endDate, patId) VALUES ('Ibuprofen', 20, TO_DATE('2024-01-05', 'YYYY-MM-DD'), TO_DATE('2024-01-15', 'YYYY-MM-DD'), 7)
+  4  SELECT * FROM dual;
+
+2 rows created.
+
+SQL>  insert INTO Medication(medName, dosage, stDate, endDate, patId) VALUES ('paracetamol', 50, TO_DATE('2024-01-08', 'YYYY-MM-DD'), TO_DATE('2024-08-19', 'YYYY-MM-DD'), 8);
+
+1 row created.
+
+SQL> select* from Medication;
+
+MEDNAME                  DOSAGE STDATE    ENDDATE        PATID
+-------------------- ---------- --------- --------- ----------
+Aspirin                     100 01-SEP-23 10-SEP-23          6
+Ibuprofen                    20 05-JAN-24 15-JAN-24          7
+paracetamol                  50 08-JAN-24 19-AUG-24          8
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> ALTER TABLE Patient
+  2  ADD phoneNumber VARCHAR2(15);
+
+Table altered.
+
+SQL> select* from Patient;
+
+     PATID PATNAME           AGE GENDER DISEASE         DOCID PHONENUMBER
+---------- ---------- ---------- ------ ---------- ---------- ---------------
+         6 Mohit              19 Male   braincell           2
+         7 Reema              27 Female cancer              3
+         8 Ritik              45 Male   heart_att           1
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> alter table Patient drop column phonenumber;
+
+Table altered.
+
+SQL> select* from Patient;
+
+     PATID PATNAME           AGE GENDER DISEASE         DOCID
+---------- ---------- ---------- ------ ---------- ----------
+         6 Mohit              19 Male   braincell           2
+         7 Reema              27 Female cancer              3
+         8 Ritik              45 Male   heart_att           1
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> delete from Medication where dosage <= 20;
+
+1 row deleted.
+
+SQL> select* from Medication;
+
+MEDNAME                  DOSAGE STDATE    ENDDATE        PATID
+-------------------- ---------- --------- --------- ----------
+Aspirin                     100 01-SEP-23 10-SEP-23          6
+paracetamol                  50 08-JAN-24 19-AUG-24          8

@@ -1,0 +1,434 @@
+week 5
+USER is "AKANKSHANEGI_5"
+SQL> create table Employee1(empId number, empName varchar2(10), dept varchar2(12), sal number, city varchar2(10));
+
+Table created.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Employee1(empId, empName, dept, sal, city) values(2000, 'John', 'Finance', 90000, 'Haridwar')
+  3  into Employee1(empId, empName, dept, sal, city) values(2001, 'Astha', 'BioTech', 95000, 'Pune')
+  4  into Employee1(empId, empName, dept, sal, city) values(2002, 'Meera', 'Science', 80000, 'Delhi')
+  5  into Employee1(empId, empName, dept, sal, city) values(2003, 'Mohan', 'Commerce', 85000, 'Delhi')
+  6  into Employee1(empId, empName, dept, sal, city) values(2004, 'Roy', 'comp_science', 70000, 'Pune')
+  7  into Employee1(empId, empName, dept, sal, city) values(2005, 'Shruti', 'Agri', 90000, 'Haridwar')
+  8  into Employee1(empId, empName, dept, sal, city) values(2006, 'Priya', 'Finance', 80000, 'Dehradun')
+  9  select* from dual;
+
+7 rows created.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> Select* from Employee1;
+
+     EMPID EMPNAME    DEPT                SAL CITY
+---------- ---------- ------------ ---------- ----------
+      2000 John       Finance           90000 Haridwar
+      2001 Astha      BioTech           95000 Pune
+      2002 Meera      Science           80000 Delhi
+      2003 Mohan      Commerce          85000 Delhi
+      2004 Roy        comp_science      70000 Pune
+      2005 Shruti     Agri              90000 Haridwar
+      2006 Priya      Finance           80000 Dehradun
+
+7 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee where city = 'Delhi' OR 'Pune';
+select* from Employee where city = 'Delhi' OR 'Pune'
+                                                   *
+ERROR at line 1:
+ORA-00920: invalid relational operator
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee1 where city ='Delhi' OR city = 'Pune';
+
+     EMPID EMPNAME    DEPT                SAL CITY
+---------- ---------- ------------ ---------- ----------
+      2001 Astha      BioTech           95000 Pune
+      2002 Meera      Science           80000 Delhi
+      2003 Mohan      Commerce          85000 Delhi
+      2004 Roy        comp_science      70000 Pune
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee1 where empId Between 2001 AND 2005;
+
+     EMPID EMPNAME    DEPT                SAL CITY
+---------- ---------- ------------ ---------- ----------
+      2001 Astha      BioTech           95000 Pune
+      2002 Meera      Science           80000 Delhi
+      2003 Mohan      Commerce          85000 Delhi
+      2004 Roy        comp_science      70000 Pune
+      2005 Shruti     Agri              90000 Haridwar
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Employeenew AS Employee1;
+create table Employeenew AS Employee1
+                            *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Employeenew AS select Employee1;
+create table Employeenew AS select Employee1
+                                           *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Employeenew AS select from Employee1;
+create table Employeenew AS select from Employee1
+                                   *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> craete table Employeenew AS select* from Employee1;
+SP2-0734: unknown command beginning "craete tab..." - rest of line ignored.
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Employeenew AS select* from Employee1;
+create table Employeenew AS select* from Employee1
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> drop table Employeenew;
+
+Table dropped.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Employeenew AS select* from Employee1;
+
+Table created.
+
+SQL> select* from Employeenew;
+
+     EMPID EMPNAME    DEPT                SAL CITY
+---------- ---------- ------------ ---------- ----------
+      2000 John       Finance           90000 Haridwar
+      2001 Astha      BioTech           95000 Pune
+      2002 Meera      Science           80000 Delhi
+      2003 Mohan      Commerce          85000 Delhi
+      2004 Roy        comp_science      70000 Pune
+      2005 Shruti     Agri              90000 Haridwar
+      2006 Priya      Finance           80000 Dehradun
+
+7 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee1 GROUP BY city HAVING COUNT(*) >1;
+select* from Employee1 GROUP BY city HAVING COUNT(*) >1
+      *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select city from Employee1 GROUP BY city HAVING COUNT(*) >1;
+
+CITY
+----------
+Delhi
+Haridwar
+Pune
+
+SQL> show suer
+SP2-0158: unknown SHOW option "suer"
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee1 where city IN(select city from Employee GROUP BY city HAVING COUNT(*)>1);
+
+no rows selected
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT e1.empName, e2.empName
+  2  FROM Employee1 e1
+  3  JOIN Employee1 e2 ON e1.city = e2.city
+  4  WHERE e1.empID <> e2.empID;
+
+EMPNAME    EMPNAME
+---------- ----------
+Shruti     John
+Roy        Astha
+Mohan      Meera
+Meera      Mohan
+Astha      Roy
+John       Shruti
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee1 where city IN(select e1.city from Employee1 e1, employeenew e2 where e1.city = e2.city and e1.empId != e2
+.empId);
+
+     EMPID EMPNAME    DEPT                SAL CITY
+---------- ---------- ------------ ---------- ----------
+      2000 John       Finance           90000 Haridwar
+      2001 Astha      BioTech           95000 Pune
+      2002 Meera      Science           80000 Delhi
+      2003 Mohan      Commerce          85000 Delhi
+      2004 Roy        comp_science      70000 Pune
+      2005 Shruti     Agri              90000 Haridwar
+
+6 rows selected.
+
+SQL> show suer
+SP2-0158: unknown SHOW option "suer"
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select e1.city from Employee1 e1, employeenew e2 where e1.city = e2.city and e1.empId != e2.empId;
+
+CITY
+----------
+Haridwar
+Pune
+Delhi
+Delhi
+Pune
+Haridwar
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee1 where city In(select city from Employee1 GROUP BY city HAVING COUNT(*) >1);
+
+     EMPID EMPNAME    DEPT                SAL CITY
+---------- ---------- ------------ ---------- ----------
+      2000 John       Finance           90000 Haridwar
+      2001 Astha      BioTech           95000 Pune
+      2002 Meera      Science           80000 Delhi
+      2003 Mohan      Commerce          85000 Delhi
+      2004 Roy        comp_science      70000 Pune
+      2005 Shruti     Agri              90000 Haridwar
+
+6 rows selected.
+
+SQL> select* from Employee1 e1 JOIN Employee1 e2 ON e1.city = e2.city where e1.empId != e2.empId;
+
+     EMPID EMPNAME    DEPT                SAL CITY            EMPID EMPNAME
+---------- ---------- ------------ ---------- ---------- ---------- ----------
+DEPT                SAL CITY
+------------ ---------- ----------
+      2005 Shruti     Agri              90000 Haridwar         2000 John
+Finance           90000 Haridwar
+
+      2004 Roy        comp_science      70000 Pune             2001 Astha
+BioTech           95000 Pune
+
+      2003 Mohan      Commerce          85000 Delhi            2002 Meera
+Science           80000 Delhi
+
+
+     EMPID EMPNAME    DEPT                SAL CITY            EMPID EMPNAME
+---------- ---------- ------------ ---------- ---------- ---------- ----------
+DEPT                SAL CITY
+------------ ---------- ----------
+      2002 Meera      Science           80000 Delhi            2003 Mohan
+Commerce          85000 Delhi
+
+      2001 Astha      BioTech           95000 Pune             2004 Roy
+comp_science      70000 Pune
+
+      2000 John       Finance           90000 Haridwar         2005 Shruti
+Agri              90000 Haridwar
+
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE
+  2  WHEN e1.city = ALL (SELECT e2.city FROM Employee1 e2)
+  3  THEN 'All employees belong to the same city' ELSE 'Employees belong to different cities'
+  4  END AS result
+  5  FROM Employee1 e1  WHERE ROWNUM = 1;
+
+RESULT
+-------------------------------------
+Employees belong to different cities
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE WHEN e1.city <> ANY(SELECT e2.city FROM Employee1 e2) THEN 'Employees does not belong to same cities' ELSE 'employees belong to the same city' END AS RESULT FROM Employee1 e where Rownum =1 ;
+SELECT CASE WHEN e1.city <> ANY(SELECT e2.city FROM Employee1 e2) THEN 'Employees does not belong to same cities' ELSE 'employees belong to the same city' END AS RESULT FROM Employee1 e where Rownum =1
+                 *
+ERROR at line 1:
+ORA-00904: "E1"."CITY": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE WHEN e1.city <> ANY(SELECT e2.city FROM Employee1 e2) THEN 'Employees does not belong to same cities' ELSE 'employees belong to the same city' END AS RESULT FROM Employee1 e1 where Rownum =1 ;
+
+RESULT
+----------------------------------------
+Employees does not belong to same cities
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE WHEN EXISTS(SELECT city FROM Employee1 e1) WHERE e1.city!= e2.city THEN 'Employees does not belong to same cities' ELSE 'employees belong to the same city' END AS RESULT FROM Employee1 e2 where Rownum =1 ;
+SELECT CASE WHEN EXISTS(SELECT city FROM Employee1 e1) WHERE e1.city!= e2.city THEN 'Employees does not belong to same cities' ELSE 'employees belong to the same city' END AS RESULT FROM Employee1 e2 where Rownum =1
+                                                       *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE WHEN EXISTS(SELECT city FROM Employee1 e2) WHERE e1.city!= e2.city THEN 'Employees does not belong to same cities' ELSE 'employees belong to the same city' END AS RESULT FROM Employee1 e1 where Rownum =1 ;
+SELECT CASE WHEN EXISTS(SELECT city FROM Employee1 e2) WHERE e1.city!= e2.city THEN 'Employees does not belong to same cities' ELSE 'employees belong to the same city' END AS RESULT FROM Employee1 e1 where Rownum =1
+                                                       *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE
+  2      WHEN EXISTS ( SELECT city FROM Employee1 e2 WHERE e1.city <> e2.city)
+  3      THEN 'Employee does not belong to the same city'
+  4      ELSE 'Employee belongs to the same city'
+  5  END AS result
+  6  FROM Employee1 e1  WHERE ROWNUM = 1;
+
+RESULT
+-----------------------------------------
+Employee does not belong to the same city
+
+SQL> SELECT CASE
+  2      WHEN EXISTS ( SELECT city FROM Employee1 e2 WHERE e1.city <> e2.city)
+  3      THEN 'Employee does not belong to the same city'
+  4      ELSE 'Employee belongs to the same city'
+  5  END AS result
+  6  FROM Employee1 e1;
+
+RESULT
+-----------------------------------------
+Employee does not belong to the same city
+Employee does not belong to the same city
+Employee does not belong to the same city
+Employee does not belong to the same city
+Employee does not belong to the same city
+Employee does not belong to the same city
+Employee does not belong to the same city
+
+7 rows selected.
+
+SQL> update Employee1 SET city = "Pune" where empId = 2000 AND empId = 2002 AND empId = 2003 AND empId = 2005 AND empId =2006
+  2  ;
+update Employee1 SET city = "Pune" where empId = 2000 AND empId = 2002 AND empId = 2003 AND empId = 2005 AND empId =2006
+                            *
+ERROR at line 1:
+ORA-00904: "Pune": invalid identifier
+
+
+SQL> update Employee1 SET city = 'Pune' where empId = 2000 AND empId = 2002 AND empId = 2003 AND empId = 2005 AND empId =2006;
+
+0 rows updated.
+
+SQL> update Employee1 SET city = 'Pune' where empId = 2000;
+
+1 row updated.
+
+SQL> update Employee1 SET city = 'Pune';
+
+7 rows updated.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE
+  2    WHEN e1.city <> ANY( SELECT e2.city from Employee1 e2)
+  3    THEN 'Employee does not belong to the same city'
+  4    ELSE 'Employee belong to the same city'
+  5  END AS RESULT
+  6  FROM Employee e1 where rownum = 1;
+
+RESULT
+-----------------------------------------
+Employee does not belong to the same city
+
+SQL> select* from EMPLOYEE1;
+
+     EMPID EMPNAME    DEPT                SAL CITY
+---------- ---------- ------------ ---------- ----------
+      2000 John       Finance           90000 Pune
+      2001 Astha      BioTech           95000 Pune
+      2002 Meera      Science           80000 Pune
+      2003 Mohan      Commerce          85000 Pune
+      2004 Roy        comp_science      70000 Pune
+      2005 Shruti     Agri              90000 Pune
+      2006 Priya      Finance           80000 Pune
+
+7 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  SELECT CASE
+  2          WHEN EXISTS ( SELECT city FROM Employee1 e2 WHERE e1.city <> e2.city)
+  3          THEN 'Employee does not belong to the same city'
+  4          ELSE 'Employee belongs to the same city'
+  5     END AS result
+  6  FROM Employee1 e1  WHERE ROWNUM = 1;
+
+RESULT
+-----------------------------------------
+Employee belongs to the same city
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE
+  2      WHEN COUNT(DISTINCT city) = 1 THEN 'All employees belong to the same city'
+  3      ELSE 'Employees belong to different cities'
+  4  END AS RESULT
+  5  FROM Employee1;
+
+RESULT
+-------------------------------------
+All employees belong to the same city
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE
+  2      WHEN (SELECT city FROM Employee1 WHERE ROWNUM = 1) = ALL (SELECT city FROM Employee1)
+  3      THEN 'All employees belong to the same city'
+  4      ELSE 'Employees belong to different cities'
+  5  END AS RESULT
+  6  FROM dual;
+
+RESULT
+-------------------------------------
+All employees belong to the same city
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT CASE
+  2      WHEN e1.city <> ANY (SELECT e2.city FROM Employee1 e2)
+  3      THEN 'Employee does not belong to the same city'
+  4      ELSE 'Employee belong to the same city'
+  5  END AS RESULT
+  6  FROM Employee1 e1
+  7  WHERE ROWNUM = 1;
+
+RESULT
+-----------------------------------------
+Employee belong to the same city

@@ -1,0 +1,170 @@
+week 4
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee;
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         1 Kiarn      Comp Science                 20      80000 Kashipur
+         2 Akanksha   Finance                      22      50000 Pauri
+         3 Gunjan     BioTech                      21      60000 Kotdwar
+         4 Shikha     Finance                      24      75000 Lucknow
+         5 Mansi      Comp _Science                25      50000 Rampur
+         6 Swati      Commerce                     28      55000 Patna
+         7 Muskan     Agiculture                   30      40000 Haridwar
+
+7 rows selected.
+
+SQL> select max(sal) from Employee;
+
+  MAX(SAL)
+----------
+     80000
+
+SQL> select max(sal) AS "MAXIMUM SALARY" from Employee;
+
+MAXIMUM SALARY
+--------------
+         80000
+
+SQL> select min(sal) from Employee;
+
+  MIN(SAL)
+----------
+     40000
+
+SQL> select min(sal) AS "Minimum Salary" from Employee;
+
+Minimum Salary
+--------------
+         40000
+
+SQL> select min(sal) AS "Min Salary" and max(sal) AS "Maxi Salary" from Employee;
+select min(sal) AS "Min Salary" and max(sal) AS "Maxi Salary" from Employee
+                                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select min(sal) AS "Mini Salary", max(sal) AS "Maxi Salary" from Employee;
+
+Mini Salary Maxi Salary
+----------- -----------
+      40000       80000
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select max(sal), min(sal) from Employee;
+
+  MAX(SAL)   MIN(SAL)
+---------- ----------
+     80000      40000
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select SUM(sal) , AVG(sal) from Employee;
+
+  SUM(SAL)   AVG(SAL)
+---------- ----------
+    410000 58571.4286
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select sal from Employee GROUP BY sal HAVING COUNT(*) >1;
+
+       SAL
+----------
+     50000
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee where sal IN(select sal from Employee GROUP BY sal HAVING COUNT(*) >1);
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         5 Mansi      Comp _Science                25      50000 Rampur
+         2 Akanksha   Finance                      22      50000 Pauri
+
+SQL> update table Employee SET sal = 55000 where empId = 3;
+update table Employee SET sal = 55000 where empId = 3
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update Employee SET sal = 55000 where empId = 3;
+
+1 row updated.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee where sal IN(select sal from Employee GROUP BY sal HAVING COUNT(*) >1);
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         6 Swati      Commerce                     28      55000 Patna
+         3 Gunjan     BioTech                      21      55000 Kotdwar
+         5 Mansi      Comp _Science                25      50000 Rampur
+         2 Akanksha   Finance                      22      50000 Pauri
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee ORDER BY ASC;
+select* from Employee ORDER BY ASC
+                               *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employee ORDER BY sal ASC;
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         7 Muskan     Agiculture                   30      40000 Haridwar
+         2 Akanksha   Finance                      22      50000 Pauri
+         5 Mansi      Comp _Science                25      50000 Rampur
+         6 Swati      Commerce                     28      55000 Patna
+         3 Gunjan     BioTech                      21      55000 Kotdwar
+         4 Shikha     Finance                      24      75000 Lucknow
+         1 Kiarn      Comp Science                 20      80000 Kashipur
+
+7 rows selected.
+
+SQL> select* from Employee ORDER BY sal DESC;
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         1 Kiarn      Comp Science                 20      80000 Kashipur
+         4 Shikha     Finance                      24      75000 Lucknow
+         3 Gunjan     BioTech                      21      55000 Kotdwar
+         6 Swati      Commerce                     28      55000 Patna
+         5 Mansi      Comp _Science                25      50000 Rampur
+         2 Akanksha   Finance                      22      50000 Pauri
+         7 Muskan     Agiculture                   30      40000 Haridwar
+
+7 rows selected.
+
+
+SQL> select* from EMPLOYEE ORDER BY sal;
+
+     EMPID EMPNAME    DEPT                        AGE        SAL CITY
+---------- ---------- -------------------- ---------- ---------- ----------
+         7 Muskan     Agiculture                   30      40000 Haridwar
+         2 Akanksha   Finance                      22      50000 Pauri
+         5 Mansi      Comp _Science                25      50000 Rampur
+         6 Swati      Commerce                     28      55000 Patna
+         3 Gunjan     BioTech                      21      55000 Kotdwar
+         4 Shikha     Finance                      24      75000 Lucknow
+         1 Kiarn      Comp Science                 20      80000 Kashipur
+
+7 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName , dept , sal from Employee where sal >= 55000 and age > 25;
+
+EMPNAME    DEPT                        SAL
+---------- -------------------- ----------
+Swati      Commerce                  55000

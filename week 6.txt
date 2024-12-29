@@ -1,0 +1,312 @@
+week 6
+SQL> connect
+Enter user-name: AkankshaNegi_5
+Enter password:
+Connected.
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Employees(empId number, empname varchar2(8), dept varchar2(6), city varchar2(8), sal number);
+
+Table created.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Employees(empId, empname, dept, city, sal) values(1, 'ayush', 'CSE', 'Delhi', 10000)
+  3  into Employees(empId, empname, dept, city, sal) values(2, 'Anu', 'HR', 'Pune', 50000)
+  4  into Employees(empId, empname, dept, city, sal) values(3, 'Akash', 'IT', 'Rorkee', 65000)
+  5  into Employees(empId, empname, dept, city, sal) values(4, 'Riay', 'CSE', 'Deogarh', 15000)
+  6  into Employees(empId, empname, dept, city, sal) values(5, 'Joy', 'ME', 'Dehradun', 5000)
+  7  into Employees(empId, empname, dept, city, sal) values(6, 'Swati', 'Tech', 'Bihar', 25000)
+  8  select* from dual;
+
+6 rows created.
+
+SQL> select* from Employees;
+
+     EMPID EMPNAME  DEPT   CITY            SAL
+---------- -------- ------ -------- ----------
+         1 ayush    CSE    Delhi         10000
+         2 Anu      HR     Pune          50000
+         3 Akash    IT     Rorkee        65000
+         4 Riay     CSE    Deogarh       15000
+         5 Joy      ME     Dehradun       5000
+         6 Swati    Tech   Bihar         25000
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from Employees where dept = 'CSE';
+
+     EMPID EMPNAME  DEPT   CITY            SAL
+---------- -------- ------ -------- ----------
+         1 ayush    CSE    Delhi         10000
+         4 Riay     CSE    Deogarh       15000
+
+SQL> select* from Employees where dept is 'CSE';
+select* from Employees where dept is 'CSE'
+                                     *
+ERROR at line 1:
+ORA-00908: missing NULL keyword
+
+
+SQL> select* from Employees where dept like 'CSE';
+
+     EMPID EMPNAME  DEPT   CITY            SAL
+---------- -------- ------ -------- ----------
+         1 ayush    CSE    Delhi         10000
+         4 Riay     CSE    Deogarh       15000
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empname from Employees where empname like 'ay%';
+
+EMPNAME
+--------
+ayush
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empname, dept from Employees where empname= '%sh';
+
+no rows selected
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empname, dept from Employees where empname like '%sh';
+
+EMPNAME  DEPT
+-------- ------
+ayush    CSE
+Akash    IT
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empname, dept from Employees where city like '%D' OR '%h';
+select empname, dept from Employees where city like '%D' OR '%h'
+                                                               *
+ERROR at line 1:
+ORA-00920: invalid relational operator
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empname, dept from Employees where empname = '%sh';
+
+no rows selected
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select* from Employees;
+
+     EMPID EMPNAME  DEPT   CITY            SAL
+---------- -------- ------ -------- ----------
+         1 ayush    CSE    Delhi         10000
+         2 Anu      HR     Pune          50000
+         3 Akash    IT     Rorkee        65000
+         4 Riay     CSE    Deogarh       15000
+         5 Joy      ME     Dehradun       5000
+         6 Swati    Tech   Bihar         25000
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName, dept from Employees where city='%D' OR city='h%';
+
+no rows selected
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName, dept from Employees where city like '%D', OR city like 'h%';
+select empName, dept from Employees where city like '%D', OR city like 'h%'
+                                                        *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName, dept from Employees where city like '%D' OR city like'h%';
+
+no rows selected
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName, dept, city from Employees where city like '%D' OR city like 'h%';
+
+no rows selected
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName, dept from Employees where city like 'D%' OR city like'%h';
+
+EMPNAME  DEPT
+-------- ------
+ayush    CSE
+Riay     CSE
+Joy      ME
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName, dept, city from Employees where city like 'D%' OR city like '%h';
+
+EMPNAME  DEPT   CITY
+-------- ------ --------
+ayush    CSE    Delhi
+Riay     CSE    Deogarh
+Joy      ME     Dehradun
+
+SQL> update table Employees empName = "Hamid' where empId = 6;
+ERROR:
+ORA-01740: missing double quote in identifier
+
+
+SQL> update table Employees empName = "Hamid" where empId = 6;
+update table Employees empName = "Hamid" where empId = 6
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update Employees empName = "Hamid" where empId = 6;
+update Employees empName = "Hamid" where empId = 6
+                         *
+ERROR at line 1:
+ORA-00971: missing SET keyword
+
+
+SQL> update Employees SET empName = "Hamid" where empId = 6;
+update Employees SET empName = "Hamid" where empId = 6
+                               *
+ERROR at line 1:
+ORA-00904: "Hamid": invalid identifier
+
+
+SQL> update Employees SET empName = 'Hamid' where empId = 6;
+
+1 row updated.
+
+SQL> select* from EMployees;
+
+     EMPID EMPNAME  DEPT   CITY            SAL
+---------- -------- ------ -------- ----------
+         1 ayush    CSE    Delhi         10000
+         2 Anu      HR     Pune          50000
+         3 Akash    IT     Rorkee        65000
+         4 Riay     CSE    Deogarh       15000
+         5 Joy      ME     Dehradun       5000
+         6 Hamid    Tech   Bihar         25000
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select * from Employees where sal > 15000 AND empName like 'h%';
+
+no rows selected
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select * from Employees where sal > 15000 AND empName like 'H%';
+
+     EMPID EMPNAME  DEPT   CITY            SAL
+---------- -------- ------ -------- ----------
+         6 Hamid    Tech   Bihar         25000
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName from Employees where LENGTH(empName) = 3;
+
+EMPNAME
+--------
+Anu
+Joy
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empname from Employees where length(empname) >=5;
+
+EMPNAME
+--------
+ayush
+Akash
+Hamid
+
+SQL> update employees SET empname = 'John Ray' where empid = 4;
+
+1 row updated.
+
+SQL> select* from Employees;
+
+     EMPID EMPNAME  DEPT   CITY            SAL
+---------- -------- ------ -------- ----------
+         1 ayush    CSE    Delhi         10000
+         2 Anu      HR     Pune          50000
+         3 Akash    IT     Rorkee        65000
+         4 John Ray CSE    Deogarh       15000
+         5 Joy      ME     Dehradun       5000
+         6 Hamid    Tech   Bihar         25000
+
+6 rows selected.
+
+SQL> select* from Employees;
+
+     EMPID EMPNAME  DEPT   CITY            SAL
+---------- -------- ------ -------- ----------
+         1 ayush    CSE    Delhi         10000
+         2 Anu      HR     Pune          50000
+         3 Akash    IT     Rorkee        65000
+         4 John Ray CSE    Deogarh       15000
+         5 Joy      ME     Dehradun       5000
+         6 Hamid    Tech   Bihar         25000
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empname from Employees where length(empname) >=5;
+
+EMPNAME
+--------
+ayush
+Akash
+John Ray
+Hamid
+
+SQL> select empname from Employees where empname like '___';
+
+EMPNAME
+--------
+Anu
+Joy
+
+SQL> select empname from Employees where empname >='_____';
+
+EMPNAME
+--------
+ayush
+
+SQL> select empname from Employees where empname like '_____';
+
+EMPNAME
+--------
+ayush
+Akash
+Hamid
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> commit;
+
+Commit complete.

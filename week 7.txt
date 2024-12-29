@@ -1,0 +1,791 @@
+week 7
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Employee2(empId number PRIMARY KEY, FOREIGN KEY deptId number references Departement(deptId), name, age number check(age) >18, sal number, city varchar2(10));
+create table Employee2(empId number PRIMARY KEY, FOREIGN KEY deptId number references Departement(deptId), name, age number check(age) >18, sal number, city varchar2(10))
+                                                             *
+ERROR at line 1:
+ORA-00906: missing left parenthesis
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Employee2(empId number PRIMARY KEY, FOREIGN KEY (deptId) number references Departement(deptId), name, age number check(age) >18, sal number, city varchar2(10));
+create table Employee2(empId number PRIMARY KEY, FOREIGN KEY (deptId) number references Departement(deptId), name, age number check(age) >18, sal number, city varchar2(10))
+                                                                      *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Department(deptId number PRIMARY KEY, deptName varchar2(10));
+
+Table created.
+
+SQL> create table Employee2(empId number PRIMARY KEY, deptId number references Department(deptId), name varchar2(10), age number check(age) >18, sal, city);
+create table Employee2(empId number PRIMARY KEY, deptId number references Department(deptId), name varchar2(10), age number check(age) >18, sal, city)
+                                                                                                                                     *
+ERROR at line 1:
+ORA-00920: invalid relational operator
+
+
+SQL> drop table Departement;
+drop table Departement
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table Department;
+
+Table dropped.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table Departement(deptId number PRIMARY KEY, deptName varchar2(10));
+
+Table created.
+
+SQL> create table Employee2(empId number PRIMARY KEY, deptId number references Department(deptId), name varchar2(10), age number check(age >18),
+ sal number, city varchar2(10));
+create table Employee2(empId number PRIMARY KEY, deptId number references Department(deptId), name varchar2(10), age number check(age >18), sal number, city varchar2(10))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> drop table Department;
+drop table Department
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  create table Departement(deptId number PRIMARY KEY, deptName varchar2(10));
+ create table Departement(deptId number PRIMARY KEY, deptName varchar2(10))
+              *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> select* from Employee2
+  2  ;
+
+no rows selected
+
+SQL> drop table Employee2;
+
+Table dropped.
+
+SQL> drop table Department;
+drop table Department
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  create table Departement(deptId number PRIMARY KEY, deptName varchar2(10));
+ create table Departement(deptId number PRIMARY KEY, deptName varchar2(10))
+              *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> select* from Departement;
+
+no rows selected
+
+SQL> drop table Departement;
+
+Table dropped.
+
+SQL> drop table Employee2;
+drop table Employee2
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select* from Employee2;
+select* from Employee2
+             *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table Employee2;
+drop table Employee2
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  create table Departement(deptId number PRIMARY KEY, deptName varchar2(10));
+
+Table created.
+
+SQL> create table Employeee(empId number PRIMARY KEY, deptId number references Department(deptId), name varchar2(10), age number check(age >18), sal number, city varchar2(10));
+create table Employeee(empId number PRIMARY KEY, deptId number references Department(deptId), name varchar2(10), age number check(age >18), sal number, city varchar2(10))
+                                                                          *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table Departement;
+
+Table dropped.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  create table Departement(deptId number PRIMARY KEY, deptName varchar2(10));
+
+Table created.
+
+SQL> create table Employee2(empId number PRIMARY KEY, deptId number references Departement(deptId), name varchar2(10), age number check(age >18), sal number, city varchar2(10));
+,city
+Table created.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  insert into Employee2(empId, deptId, name, age, sal, city) values(1, 51, 'Kiran', 19, 89000, 'Kashipur')
+  3  insert into Employee2(empId, deptId, name, age, sal, city) values(2, 52, 'John', 29, 90000, 'Dehradun')
+  4  insert into Employee2(empId, deptId, name, age, sal, city) values(3, 53, 'Smith', 20, 70000, 'Roorkee')
+  5  insert into Employee2(empId, deptId, name, age, sal, city) values(4, 54, 'Akanksha', 25, 55000, 'Delhi')
+  6  insert into Employee2(empId, deptId, name, age, sal, city) values(5, 55, 'Shikha', 27, 65000, 'Haridwar')
+  7  insert into Employee2(empId, deptId, name, age, sal, city) values(6, 56, 'Gunjan', 30, 75000, 'Nanital')
+  8  insert into Employee2(empId, deptId, name, age, sal, city) values(7, 57, 'Abhinav', 29, 10000, 'Pune')
+  9  insert into Employee2(empId, deptId, name, age, sal, city) values(8, 58, 'Pinky', 25, 15000, 'Dehradun')
+ 10  insert into Employee2(empId, deptId, name, age, sal, city) values(9, 59, 'Sonu', 19, 20000, 'Delhi')
+ 11  insert into Employee2(empId, deptId, name, age, sal, city) values(10, 60, 'Mohit', 20, 25000, 'Rorkee')
+ 12  select* from dual;
+insert into Employee2(empId, deptId, name, age, sal, city) values(1, 51, 'Kiran', 19, 89000, 'Kashipur')
+*
+ERROR at line 2:
+ORA-00905: missing keyword
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Employee2(empId, deptId, name, age, sal, city) values(1, 51, 'Kiran', 19, 89000, 'Kashipur')
+  3  into Employee2(empId, deptId, name, age, sal, city) values(2, 52, 'John', 29, 90000, 'Dehradun')
+  4  into Employee2(empId, deptId, name, age, sal, city) values(3, 53, 'Smith', 20, 70000, 'Roorkee')
+  5  into Employee2(empId, deptId, name, age, sal, city) values(4, 54, 'Akanksha', 25, 55000, 'Delhi')
+  6  into Employee2(empId, deptId, name, age, sal, city) values(5, 55, 'Shikha', 27, 65000, 'Haridwar')
+  7  into Employee2(empId, deptId, name, age, sal, city) values(6, 56, 'Gunjan', 30, 75000, 'Nanital')
+  8  into Employee2(empId, deptId, name, age, sal, city) values(7, 57, 'Abhinav', 29, 10000, 'Pune')
+  9  into Employee2(empId, deptId, name, age, sal, city) values(9, 59, 'Sonu', 19, 20000, 'Delhi')
+ 10  into Employee2(empId, deptId, name, age, sal, city) values(10, 60, 'Mohit', 20, 25000, 'Rorkee')
+ 11  select* from dual;
+insert all
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (AKANKSHANEGI_5.SYS_C007148) violated - parent
+key not found
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Departement(deptId, deptName) values(101, 'CSE')
+  3  into Departement(deptId, deptName) values(102, 'ME')
+  4  into Departement(deptId, deptName) values(103, 'CE')
+  5  into Departement(deptId, deptName) values(104, 'Tech')
+  6  into Departement(deptId, deptName) values(105, 'BCA')
+  7  into Departement(deptId, deptName) values(106, 'Law')
+  8  into Departement(deptId, deptName) values(107, 'EE')
+  9  into Departement(deptId, deptName) values(108, 'Gaming')
+ 10  into Departement(deptId, deptName) values(109, 'Agri')
+ 11  into Departement(deptId, deptName) values(110, 'Finance')
+ 12  select* from dual;
+
+10 rows created.
+
+SQL> select* from Departement;
+
+    DEPTID DEPTNAME
+---------- ----------
+       101 CSE
+       102 ME
+       103 CE
+       104 Tech
+       105 BCA
+       106 Law
+       107 EE
+       108 Gaming
+       109 Agri
+       110 Finance
+
+10 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Employee2(empId, deptId, name, age, sal, city) values(1, 51, 'Kiran', 19, 89000, 'Kashipur')
+  3  into Employee2(empId, deptId, name, age, sal, city) values(2, 52, 'John', 29, 90000, 'Dehradun')
+  4  into Employee2(empId, deptId, name, age, sal, city) values(3, 53, 'Smith', 20, 70000, 'Roorkee')
+  5  into Employee2(empId, deptId, name, age, sal, city) values(4, 54, 'Akanksha', 25, 55000, 'Delhi')
+  6  into Employee2(empId, deptId, name, age, sal, city) values(5, 55, 'Shikha', 27, 65000, 'Haridwar')
+  7  into Employee2(empId, deptId, name, age, sal, city) values(6, 56, 'Gunjan', 30, 75000, 'Nanital')
+  8  into Employee2(empId, deptId, name, age, sal, city) values(7, 57, 'Abhinav', 29, 10000, 'Pune')
+  9  into Employee2(empId, deptId, name, age, sal, city) values(9, 59, 'Sonu', 19, 20000, 'Delhi')
+ 10  into Employee2(empId, deptId, name, age, sal, city) values(10, 60, 'Mohit', 20, 25000, 'Rorkee')
+ 11  select* from dual;
+insert all
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (AKANKSHANEGI_5.SYS_C007148) violated - parent
+key not found
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Employee2(empId, deptId, name, age, sal, city) values(1, 101, 'Kiran', 19, 89000, 'Kashipur')
+  3  into Employee2(empId, deptId, name, age, sal, city) values(2, 102, 'John', 29, 90000, 'Dehradun')
+  4  into Employee2(empId, deptId, name, age, sal, city) values(3, NULL, 'Smith', 20, 15000, 'Roorkee')
+  5  into Employee2(empId, deptId, name, age, sal, city) values(4, 104, 'Akanksha', 25, 55000, 'Delhi')
+  6  into Employee2(empId, deptId, name, age, sal, city) values(5, 105, 'Shikha', 27, 65000, 'Haridwar')
+  7  into Employee2(empId, deptId, name, age, sal, city) values(6, 106, 'Gunjan', 30, 75000, 'Nanital')
+  8  into Employee2(empId, deptId, name, age, sal, city) values(7, 107, 'Abhinav', 29, 10000, 'Pune')
+  9  into Employee2(empId, deptId, name, age, sal, city) values(8, 108, 'Sonu', 19, 20000, 'Delhi')
+ 10  into Employee2(empId, deptId, name, age, sal, city) values(9, 109, 'Mohit', 20, 25000, 'Rorkee')
+ 11  into Employee2(empId, deptId, name, age, sal, city) values(10, NULL, 'Garg', 20, 30000, 'Rorkee')
+ 12  select* from dual;
+
+10 rows created.
+
+SQL> select* from dual;
+
+D
+-
+X
+
+SQL> select* from Employee2;
+
+     EMPID     DEPTID NAME              AGE        SAL CITY
+---------- ---------- ---------- ---------- ---------- ----------
+         1        101 Kiran              19      89000 Kashipur
+         2        102 John               29      90000 Dehradun
+         3            Smith              20      15000 Roorkee
+         4        104 Akanksha           25      55000 Delhi
+         5        105 Shikha             27      65000 Haridwar
+         6        106 Gunjan             30      75000 Nanital
+         7        107 Abhinav            29      10000 Pune
+         8        108 Sonu               19      20000 Delhi
+         9        109 Mohit              20      25000 Rorkee
+        10            Garg               20      30000 Rorkee
+
+10 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Departement(111, 'Marketing')
+  3  into Departement(112, 'HR')
+  4  select* from dual;
+into Departement(111, 'Marketing')
+                 *
+ERROR at line 2:
+ORA-01747: invalid user.table.column, table.column, or column specification
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Departement(deptId, deptName') values(111, 'Marketing')
+  3  into Departement(deptId, deptName) values(112, 'HR')
+  4
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into Departement(deptId, deptName) values(111, 'Marketing')
+  3  into Departement(deptId, deptName) values(112, 'HR')
+  4  select* from dual;
+
+2 rows created.
+
+SQL> select* from Departement;
+
+    DEPTID DEPTNAME
+---------- ----------
+       101 CSE
+       102 ME
+       103 CE
+       104 Tech
+       105 BCA
+       106 Law
+       107 EE
+       108 Gaming
+       109 Agri
+       110 Finance
+       111 Marketing
+
+    DEPTID DEPTNAME
+---------- ----------
+       112 HR
+
+12 rows selected.
+
+SQL> set pagesize 15;
+SQL> select* from Departement;
+
+    DEPTID DEPTNAME
+---------- ----------
+       101 CSE
+       102 ME
+       103 CE
+       104 Tech
+       105 BCA
+       106 Law
+       107 EE
+       108 Gaming
+       109 Agri
+       110 Finance
+       111 Marketing
+       112 HR
+
+12 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select e.empid, d.deptName, e.name, e.age, e.sal, e.city
+  2  from Employee2 e JOIN Departement d ON e.deptId = d.deptId;
+
+     EMPID DEPTNAME   NAME              AGE        SAL CITY
+---------- ---------- ---------- ---------- ---------- ----------
+         1 CSE        Kiran              19      89000 Kashipur
+         2 ME         John               29      90000 Dehradun
+         4 Tech       Akanksha           25      55000 Delhi
+         5 BCA        Shikha             27      65000 Haridwar
+         6 Law        Gunjan             30      75000 Nanital
+         7 EE         Abhinav            29      10000 Pune
+         8 Gaming     Sonu               19      20000 Delhi
+         9 Agri       Mohit              20      25000 Rorkee
+
+8 rows selected.
+
+SQL> show suer
+SP2-0158: unknown SHOW option "suer"
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select e.*, d.deptName from Employee2 e LEFT JOIN Departement d ON e.deptId = d.deptId;
+
+     EMPID     DEPTID NAME              AGE        SAL CITY       DEPTNAME
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+         1        101 Kiran              19      89000 Kashipur   CSE
+         2        102 John               29      90000 Dehradun   ME
+         4        104 Akanksha           25      55000 Delhi      Tech
+         5        105 Shikha             27      65000 Haridwar   BCA
+         6        106 Gunjan             30      75000 Nanital    Law
+         7        107 Abhinav            29      10000 Pune       EE
+         8        108 Sonu               19      20000 Delhi      Gaming
+         9        109 Mohit              20      25000 Rorkee     Agri
+        10            Garg               20      30000 Rorkee
+         3            Smith              20      15000 Roorkee
+
+10 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select e.*, d.deptName from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId;
+
+     EMPID     DEPTID NAME              AGE        SAL CITY       DEPTNAME
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+         1        101 Kiran              19      89000 Kashipur   CSE
+         2        102 John               29      90000 Dehradun   ME
+         4        104 Akanksha           25      55000 Delhi      Tech
+         5        105 Shikha             27      65000 Haridwar   BCA
+         6        106 Gunjan             30      75000 Nanital    Law
+         7        107 Abhinav            29      10000 Pune       EE
+         8        108 Sonu               19      20000 Delhi      Gaming
+         9        109 Mohit              20      25000 Rorkee     Agri
+                                                                  Marketing
+                                                                  HR
+                                                                  CE
+                                                                  Finance
+
+12 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empId, deptName, name, age, sal, city from Employee2 e JOIN Departement d ON e.deptId = d.deptId;
+
+     EMPID DEPTNAME   NAME              AGE        SAL CITY
+---------- ---------- ---------- ---------- ---------- ----------
+         1 CSE        Kiran              19      89000 Kashipur
+         2 ME         John               29      90000 Dehradun
+         4 Tech       Akanksha           25      55000 Delhi
+         5 BCA        Shikha             27      65000 Haridwar
+         6 Law        Gunjan             30      75000 Nanital
+         7 EE         Abhinav            29      10000 Pune
+         8 Gaming     Sonu               19      20000 Delhi
+         9 Agri       Mohit              20      25000 Rorkee
+
+8 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 NATURAL JOIN Departement;
+
+NAME       DEPTNAME
+---------- ----------
+Kiran      CSE
+John       ME
+Akanksha   Tech
+Shikha     BCA
+Gunjan     Law
+Abhinav    EE
+Sonu       Gaming
+Mohit      Agri
+
+8 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName, from Departement d RIGHT JOIN Employee2 e ON e.deptId = d.deptId;
+select name, deptName, from Departement d RIGHT JOIN Employee2 e ON e.deptId = d.deptId
+                       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Departement d RIGHT JOIN Employee2 e ON e.deptId = d.deptId;
+
+NAME       DEPTNAME
+---------- ----------
+Kiran      CSE
+John       ME
+Akanksha   Tech
+Shikha     BCA
+Gunjan     Law
+Abhinav    EE
+Sonu       Gaming
+Mohit      Agri
+Garg
+Smith
+
+10 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name from Employee2 where deptId is NULL;
+
+NAME
+----------
+Smith
+Garg
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empId, deptId, name, deptName age, sal, city from Employee2 NATURAL JOIN Departement;
+
+     EMPID     DEPTID NAME       AGE               SAL CITY
+---------- ---------- ---------- ---------- ---------- ----------
+         1        101 Kiran      CSE             89000 Kashipur
+         2        102 John       ME              90000 Dehradun
+         4        104 Akanksha   Tech            55000 Delhi
+         5        105 Shikha     BCA             65000 Haridwar
+         6        106 Gunjan     Law             75000 Nanital
+         7        107 Abhinav    EE              10000 Pune
+         8        108 Sonu       Gaming          20000 Delhi
+         9        109 Mohit      Agri            25000 Rorkee
+
+8 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName, dept from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId where sal > 25000;
+select empName, dept from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId where sal > 25000
+                *
+ERROR at line 1:
+ORA-00904: "DEPT": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select empName, deptName from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId where sal > 25000;
+select empName, deptName from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId where sal > 25000
+       *
+ERROR at line 1:
+ORA-00904: "EMPNAME": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId where sal > 25000;
+
+NAME       DEPTNAME
+---------- ----------
+Kiran      CSE
+John       ME
+Akanksha   Tech
+Shikha     BCA
+Gunjan     Law
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName, sal from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId where sal > 25000;
+
+NAME       DEPTNAME          SAL
+---------- ---------- ----------
+Kiran      CSE             89000
+John       ME              90000
+Akanksha   Tech            55000
+Shikha     BCA             65000
+Gunjan     Law             75000
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT E.Name, D.Department_Name
+  2  FROM Employee E
+  3  LEFT JOIN Department D ON E.Department_ID = D.Department_ID
+  4  WHERE E.Department_ID IS NULL;
+LEFT JOIN Department D ON E.Department_ID = D.Department_ID
+          *
+ERROR at line 3:
+ORA-00942: table or view does not exist
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 e
+  2  LEFT JOIN Departement d ON e.deptId = d.deptId where e.deptId IS NULL;
+
+NAME       DEPTNAME
+---------- ----------
+Garg
+Smith
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name ,deptName, from Employee2 e LEFT JOIN Departement d ON e.deptId = d.deptId where sal >25000;
+select name ,deptName, from Employee2 e LEFT JOIN Departement d ON e.deptId = d.deptId where sal >25000
+                       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Emplloyee2 e LEFT JOIN Departement d ON e.deptId = d.deptId where sal >25000;
+select name, deptName from Emplloyee2 e LEFT JOIN Departement d ON e.deptId = d.deptId where sal >25000
+                           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 e LEFT JOIN Departement d ON e.deptId = d.deptId where sal >25000;
+
+NAME       DEPTNAME
+---------- ----------
+Kiran      CSE
+John       ME
+Akanksha   Tech
+Shikha     BCA
+Gunjan     Law
+Garg
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName, sal from Employee2 e LEFT JOIN Departement d ON e.deptId = d.deptId where sal >25000;
+
+NAME       DEPTNAME          SAL
+---------- ---------- ----------
+Kiran      CSE             89000
+John       ME              90000
+Akanksha   Tech            55000
+Shikha     BCA             65000
+Gunjan     Law             75000
+Garg                       30000
+
+6 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId where deptId = NULL
+  2  ;
+select name, deptName from Employee2 e RIGHT JOIN Departement d ON e.deptId = d.deptId where deptId = NULL
+                                                                                             *
+ERROR at line 1:
+ORA-00918: column ambiguously defined
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 e RIGHT JOIN Departement d
+  2  ON e.deptId = d.deptId where deptId is NULL;
+ON e.deptId = d.deptId where deptId is NULL
+                             *
+ERROR at line 2:
+ORA-00918: column ambiguously defined
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 e RIGHT JOIN Departement d
+  2  ON e.deptId = d.deptId where e.deptId is NULL;
+
+NAME       DEPTNAME
+---------- ----------
+           Marketing
+           HR
+           CE
+           Finance
+
+SQL> select name, deptName, deptId from Employee2 e LEFT JOIN Departement d
+  2  ON e.deptId = d.deptId where e.deptId is NULL;
+select name, deptName, deptId from Employee2 e LEFT JOIN Departement d
+                       *
+ERROR at line 1:
+ORA-00918: column ambiguously defined
+
+
+SQL> select name, deptName, deptId from Employee2 e LEFT JOIN Departement d
+  2  select name, deptName, e.deptId from Employee2 e LEFT JOIN Departement d
+  3  ON e.deptId = d.deptId where e.deptId is NULL;
+select name, deptName, e.deptId from Employee2 e LEFT JOIN Departement d
+*
+ERROR at line 2:
+ORA-00905: missing keyword
+
+
+SQL> select name, deptName, e.deptId from Employee2 e LEFT JOIN Departement d
+  2  ON e.deptId = d.deptId where e.deptId is NULL;
+
+NAME       DEPTNAME       DEPTID
+---------- ---------- ----------
+Garg
+Smith
+
+SQL> show user;
+USER is "AKANKSHANEGI_5"
+SQL> select name , deptname from employee2 where age > 30;
+select name , deptname from employee2 where age > 30
+              *
+ERROR at line 1:
+ORA-00904: "DEPTNAME": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 e LEFT JOIN Departement d
+  2  ON e.deptId = d.deptId where age >30;
+
+no rows selected
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName from Employee2 e LEFT JOIN Departement d
+  2  ON e.deptId = d.deptId where age >25;
+
+NAME       DEPTNAME
+---------- ----------
+John       ME
+Shikha     BCA
+Gunjan     Law
+Abhinav    EE
+
+SQL> select name, deptName from Employee2 e RIGHT JOIN Departement d
+  2  ON e.deptId = d.deptId where age >25;
+
+NAME       DEPTNAME
+---------- ----------
+John       ME
+Shikha     BCA
+Gunjan     Law
+Abhinav    EE
+
+SQL> select name, deptName, age from Employee2 e LEFT JOIN Departement d
+  2  ON e.deptId = d.deptId where age >25;
+
+NAME       DEPTNAME          AGE
+---------- ---------- ----------
+John       ME                 29
+Shikha     BCA                27
+Gunjan     Law                30
+Abhinav    EE                 29
+
+SQL> select name, deptName from Employee2 e JOIN Departement d
+  2  ON e.deptId = d.deptId where age >25;
+
+NAME       DEPTNAME
+---------- ----------
+John       ME
+Shikha     BCA
+Gunjan     Law
+Abhinav    EE
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select name, deptName, age from Employee2 e JOIN Departement d
+  2  ON e.deptId = d.deptId where age >25;
+
+NAME       DEPTNAME          AGE
+---------- ---------- ----------
+John       ME                 29
+Shikha     BCA                27
+Gunjan     Law                30
+Abhinav    EE                 29
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  select empId, deptId, name, deptName, age, sal, city from Employee2 NATURAL JOIN Departement;
+
+     EMPID     DEPTID NAME       DEPTNAME          AGE        SAL CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+         1        101 Kiran      CSE                19      89000 Kashipur
+         2        102 John       ME                 29      90000 Dehradun
+         4        104 Akanksha   Tech               25      55000 Delhi
+         5        105 Shikha     BCA                27      65000 Haridwar
+         6        106 Gunjan     Law                30      75000 Nanital
+         7        107 Abhinav    EE                 29      10000 Pune
+         8        108 Sonu       Gaming             19      20000 Delhi
+         9        109 Mohit      Agri               20      25000 Rorkee
+
+8 rows selected.
+
+
+
+insert all
+into Employee2(empId, deptId, name, age, sal, city) values(1, 101, 'Kiran', 19, 89000, 'Kashipur')
+into Employee2(empId, deptId, name, age, sal, city) values(2, 102, 'John', 29, 90000, 'Dehradun')
+into Employee2(empId, deptId, name, age, sal, city) values(3, 103, 'Smith', 20, 70000, 'Roorkee')
+into Employee2(empId, deptId, name, age, sal, city) values(4, 104, 'Akanksha', 25, 55000, 'Delhi')
+into Employee2(empId, deptId, name, age, sal, city) values(5, 105, 'Shikha', 27, 65000, 'Haridwar')
+into Employee2(empId, deptId, name, age, sal, city) values(6, 106, 'Gunjan', 30, 75000, 'Nanital')
+into Employee2(empId, deptId, name, age, sal, city) values(7, 107, 'Abhinav', 29, 10000, 'Pune')
+into Employee2(empId, deptId, name, age, sal, city) values(8, 108, 'Pinky', 25, 15000, 'Dehradun')
+into Employee2(empId, deptId, name, age, sal, city) values(9, 109, 'Sonu', 19, 20000, 'Delhi')
+into Employee2(empId, deptId, name, age, sal, city) values(10, 110, 'Mohit', 20, 25000, 'Rorkee')
+select* from dual;
+
+
+insert all
+into Departement(deptId, deptName) values(101, 'CSE')
+into Departement(deptId, deptName) values(102, 'ME')
+into Departement(deptId, deptName) values(103, 'CE')
+into Departement(deptId, deptName) values(104, 'Tech')
+into Departement(deptId, deptName) values(105, 'BCA')
+into Departement(deptId, deptName) values(106, 'Law')
+into Departement(deptId, deptName) values(107, 'EE')
+into Departement(deptId, deptName) values(108, 'Gaming')
+into Departement(deptId, deptName) values(109, 'Agri')
+into Departement(deptId, deptName) values(110, 'Finance')
+into Departement(deptId, deptName) values(111, 'Marketing')
+into Departement(deptId, deptName) values(112, 'HR')
+select* from dual;

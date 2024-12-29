@@ -1,0 +1,414 @@
+week 8
+SQL> connect
+Enter user-name: AkankshaNegi_5
+Enter password:
+Connected.
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table customer(cust_id number PRIMARY KEY, cust_name varchar2(10), age number, address varchar2(10));
+
+Table created.
+
+SQL> create table custorder(order_id number PRIMARY KEY, order_date date, cust_id number Foreign Key customer(cust_id));
+create table custorder(order_id number PRIMARY KEY, order_date date, cust_id number Foreign Key customer(cust_id))
+                                                                                    *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> drop table customer;
+
+Table dropped.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table customer(cust_id number PRIMARY KEY, cust_name varchar2(10), age number, address varchar2(10));
+
+Table created.
+
+SQL> create table custorder(order_id number PRIMARY KEY, order_date date, cust_id number references customer(cust_id));
+
+Table created.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert all
+  2  into customer(cust_id, cust_name, age, address) values(1000, 'Kiran', 20, 'Kashipur')
+  3  into customer(cust_id, cust_name, age, address) values(1001, 'Akanksha', 22, 'Pauri')
+  4  into customer(cust_id, cust_name, age, address) values(1002, 'Kishan', 25, 'Dehradun')
+  5  into customer(cust_id, cust_name, age, address) values(1003, 'Gunjan', 23, 'Pune')
+  6  into customer(cust_id, cust_name, age, address) values(1004, 'Shikha', 20, 'Pauri')
+  7  select* from dual;
+
+5 rows created.
+
+SQL> select* from customer;
+
+   CUST_ID CUST_NAME         AGE ADDRESS
+---------- ---------- ---------- ----------
+      1000 Kiran              20 Kashipur
+      1001 Akanksha           22 Pauri
+      1002 Kishan             25 Dehradun
+      1003 Gunjan             23 Pune
+      1004 Shikha             20 Pauri
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert into custorder(order_id, order_date, cust_id) values(5000, 19-08-2024, 1001);
+insert into custorder(order_id, order_date, cust_id) values(5000, 19-08-2024, 1001)
+                                                                       *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected DATE got NUMBER
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert into custorder(order_id, order_date, cust_id) values(5000, 19 Aug 2024, 1001);
+insert into custorder(order_id, order_date, cust_id) values(5000, 19 Aug 2024, 1001)
+                                                                     *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert into custorder(order_id, order_date, cust_id) values(5000, 2024-08-19, 1001);
+insert into custorder(order_id, order_date, cust_id) values(5000, 2024-08-19, 1001)
+                                                                         *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected DATE got NUMBER
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert into custorder(order_id, order_date, cust_id) values(5000, '2024-08-19', 1001);
+insert into custorder(order_id, order_date, cust_id) values(5000, '2024-08-19', 1001)
+                                                                  *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> shoe user
+SP2-0042: unknown command "shoe user" - rest of line ignored.
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert into custorder(order_id, order_date, cust_id) values(5000, TO_DATE('19-08-2024', 'DD-MM-YYYY'), 1001);
+
+1 row created.
+
+SQL> insert into customer values(5001, '31-OCT-2024', 1003);
+insert into customer values(5001, '31-OCT-2024', 1003)
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into custorder(5001, '31-OCT-2024', 1003);
+insert into custorder(5001, '31-OCT-2024', 1003)
+                      *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> delete table custorder;
+delete table custorder
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> delete custorder;
+
+1 row deleted.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> insert into custorder(order_id, order_date, cust_id) values(5000, TO_DATE('19-08-2024', 'DD-MM-YYYY'), 1001);
+
+1 row created.
+
+SQL> insert into custorder values(5001, '31-OCT-2024', 1003);
+
+1 row created.
+
+SQL> insert all
+  2  into custorder values(5002, '5-NOV-2024', 1001)
+  3  into customer values(5003, '27-FEB-2024', 1004)
+  4
+SQL> insert all
+  2  into custorder values(5002, '5-NOV-2024', 1001)
+  3  into custorder values(5003, '27-FEB-2024', 1004)
+  4  into custorder values(5004, '8-JUNE-2024', 1003)
+  5  select * from dual;
+
+3 rows created.
+
+SQL> select* from custorder;
+
+  ORDER_ID ORDER_DAT    CUST_ID
+---------- --------- ----------
+      5000 19-AUG-24       1001
+      5001 31-OCT-24       1003
+      5002 05-NOV-24       1001
+      5003 27-FEB-24       1004
+      5004 08-JUN-24       1003
+
+SQL> insert all
+  2
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select cust_id, cust_name, age, address FULL JOIN custorder;
+select cust_id, cust_name, age, address FULL JOIN custorder
+                                             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select cust_id, cust_name, age, address FULL JOIN from custorder;
+select cust_id, cust_name, age, address FULL JOIN from custorder
+                                             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select cust_id, cust_name, age, address from customer FULL JOIN custorder;
+select cust_id, cust_name, age, address from customer FULL JOIN custorder
+                                                                        *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select cust_id, cust_name, age, address from customer FULL JOIN custorder where customer.cust_id = custorder.cust_id;
+select cust_id, cust_name, age, address from customer FULL JOIN custorder where customer.cust_id = custorder.cust_id
+                                                                          *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select cust_id, cust_name, age, address from customer FULL JOIN custorder ON customer.cust_id = custorder.cust_id;
+select cust_id, cust_name, age, address from customer FULL JOIN custorder ON customer.cust_id = custorder.cust_id
+       *
+ERROR at line 1:
+ORA-00918: column ambiguously defined
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.cust_id, c.cust_name, c.age, c.address from customer c FULL JOIN custorder co ON c.cust_id = co.cust_id;
+
+   CUST_ID CUST_NAME         AGE ADDRESS
+---------- ---------- ---------- ----------
+      1001 Akanksha           22 Pauri
+      1003 Gunjan             23 Pune
+      1001 Akanksha           22 Pauri
+      1004 Shikha             20 Pauri
+      1003 Gunjan             23 Pune
+      1000 Kiran              20 Kashipur
+      1002 Kishan             25 Dehradun
+
+7 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c*, co* from customer c FULL JOIN custorder co ON c.cust_id = co.cust_id;
+select c*, co* from customer c FULL JOIN custorder co ON c.cust_id = co.cust_id
+         *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.* , co.* from customer c FULL JOIN co ON c.cust_id = co.cust_id;
+select c.* , co.* from customer c FULL JOIN co ON c.cust_id = co.cust_id
+                                            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.* , co.* from customer c FULL JOIN custorder co ON c.cust_id = co.cust_id;
+
+   CUST_ID CUST_NAME         AGE ADDRESS      ORDER_ID ORDER_DAT    CUST_ID
+---------- ---------- ---------- ---------- ---------- --------- ----------
+      1001 Akanksha           22 Pauri            5000 19-AUG-24       1001
+      1003 Gunjan             23 Pune             5001 31-OCT-24       1003
+      1001 Akanksha           22 Pauri            5002 05-NOV-24       1001
+      1004 Shikha             20 Pauri            5003 27-FEB-24       1004
+      1003 Gunjan             23 Pune             5004 08-JUN-24       1003
+      1000 Kiran              20 Kashipur
+      1002 Kishan             25 Dehradun
+
+7 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.* , co.* from customer c FULL OUTER JOIN custorder co ON c.cust_id = co.cust_id;
+
+   CUST_ID CUST_NAME         AGE ADDRESS      ORDER_ID ORDER_DAT    CUST_ID
+---------- ---------- ---------- ---------- ---------- --------- ----------
+      1001 Akanksha           22 Pauri            5000 19-AUG-24       1001
+      1003 Gunjan             23 Pune             5001 31-OCT-24       1003
+      1001 Akanksha           22 Pauri            5002 05-NOV-24       1001
+      1004 Shikha             20 Pauri            5003 27-FEB-24       1004
+      1003 Gunjan             23 Pune             5004 08-JUN-24       1003
+      1000 Kiran              20 Kashipur
+      1002 Kishan             25 Dehradun
+
+7 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.cust_id, c.cust_name, c.address as destination from customer c JOIN custorder co ON c.cust_id = co.cust_id;
+
+   CUST_ID CUST_NAME  DESTINATIO
+---------- ---------- ----------
+      1001 Akanksha   Pauri
+      1003 Gunjan     Pune
+      1001 Akanksha   Pauri
+      1004 Shikha     Pauri
+      1003 Gunjan     Pune
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.cust_id, c.cust_name, c.address as destination from customer c JOIN custorder co ON c.cust_id = co.cust_id;
+
+   CUST_ID CUST_NAME  DESTINATIO
+---------- ---------- ----------
+      1001 Akanksha   Pauri
+      1003 Gunjan     Pune
+      1001 Akanksha   Pauri
+      1004 Shikha     Pauri
+      1003 Gunjan     Pune
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL>  select c.cust_id, c.cust_name, c.address as destination
+  2  from customer c JOIN custorder co ON c.cust_id = co.cust_id;
+
+   CUST_ID CUST_NAME  DESTINATIO
+---------- ---------- ----------
+      1001 Akanksha   Pauri
+      1003 Gunjan     Pune
+      1001 Akanksha   Pauri
+      1004 Shikha     Pauri
+      1003 Gunjan     Pune
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.*, co.* from customer c CROSS JOIN custorder co;
+
+   CUST_ID CUST_NAME         AGE ADDRESS      ORDER_ID ORDER_DAT    CUST_ID
+---------- ---------- ---------- ---------- ---------- --------- ----------
+      1000 Kiran              20 Kashipur         5000 19-AUG-24       1001
+      1000 Kiran              20 Kashipur         5001 31-OCT-24       1003
+      1000 Kiran              20 Kashipur         5002 05-NOV-24       1001
+      1000 Kiran              20 Kashipur         5003 27-FEB-24       1004
+      1000 Kiran              20 Kashipur         5004 08-JUN-24       1003
+      1001 Akanksha           22 Pauri            5000 19-AUG-24       1001
+      1001 Akanksha           22 Pauri            5001 31-OCT-24       1003
+      1001 Akanksha           22 Pauri            5002 05-NOV-24       1001
+      1001 Akanksha           22 Pauri            5003 27-FEB-24       1004
+      1001 Akanksha           22 Pauri            5004 08-JUN-24       1003
+      1002 Kishan             25 Dehradun         5000 19-AUG-24       1001
+
+   CUST_ID CUST_NAME         AGE ADDRESS      ORDER_ID ORDER_DAT    CUST_ID
+---------- ---------- ---------- ---------- ---------- --------- ----------
+      1002 Kishan             25 Dehradun         5001 31-OCT-24       1003
+      1002 Kishan             25 Dehradun         5002 05-NOV-24       1001
+      1002 Kishan             25 Dehradun         5003 27-FEB-24       1004
+      1002 Kishan             25 Dehradun         5004 08-JUN-24       1003
+      1003 Gunjan             23 Pune             5000 19-AUG-24       1001
+      1003 Gunjan             23 Pune             5001 31-OCT-24       1003
+      1003 Gunjan             23 Pune             5002 05-NOV-24       1001
+      1003 Gunjan             23 Pune             5003 27-FEB-24       1004
+      1003 Gunjan             23 Pune             5004 08-JUN-24       1003
+      1004 Shikha             20 Pauri            5000 19-AUG-24       1001
+      1004 Shikha             20 Pauri            5001 31-OCT-24       1003
+
+   CUST_ID CUST_NAME         AGE ADDRESS      ORDER_ID ORDER_DAT    CUST_ID
+---------- ---------- ---------- ---------- ---------- --------- ----------
+      1004 Shikha             20 Pauri            5002 05-NOV-24       1001
+      1004 Shikha             20 Pauri            5003 27-FEB-24       1004
+      1004 Shikha             20 Pauri            5004 08-JUN-24       1003
+
+25 rows selected.
+
+SQL> set page size 40;
+SP2-0158: unknown SET option "page"
+SQL> set pagesize 40;
+SQL> select c.*, co.* from customer c CROSS JOIN custorder co;
+
+   CUST_ID CUST_NAME         AGE ADDRESS      ORDER_ID ORDER_DAT    CUST_ID
+---------- ---------- ---------- ---------- ---------- --------- ----------
+      1000 Kiran              20 Kashipur         5000 19-AUG-24       1001
+      1000 Kiran              20 Kashipur         5001 31-OCT-24       1003
+      1000 Kiran              20 Kashipur         5002 05-NOV-24       1001
+      1000 Kiran              20 Kashipur         5003 27-FEB-24       1004
+      1000 Kiran              20 Kashipur         5004 08-JUN-24       1003
+      1001 Akanksha           22 Pauri            5000 19-AUG-24       1001
+      1001 Akanksha           22 Pauri            5001 31-OCT-24       1003
+      1001 Akanksha           22 Pauri            5002 05-NOV-24       1001
+      1001 Akanksha           22 Pauri            5003 27-FEB-24       1004
+      1001 Akanksha           22 Pauri            5004 08-JUN-24       1003
+      1002 Kishan             25 Dehradun         5000 19-AUG-24       1001
+      1002 Kishan             25 Dehradun         5001 31-OCT-24       1003
+      1002 Kishan             25 Dehradun         5002 05-NOV-24       1001
+      1002 Kishan             25 Dehradun         5003 27-FEB-24       1004
+      1002 Kishan             25 Dehradun         5004 08-JUN-24       1003
+      1003 Gunjan             23 Pune             5000 19-AUG-24       1001
+      1003 Gunjan             23 Pune             5001 31-OCT-24       1003
+      1003 Gunjan             23 Pune             5002 05-NOV-24       1001
+      1003 Gunjan             23 Pune             5003 27-FEB-24       1004
+      1003 Gunjan             23 Pune             5004 08-JUN-24       1003
+      1004 Shikha             20 Pauri            5000 19-AUG-24       1001
+      1004 Shikha             20 Pauri            5001 31-OCT-24       1003
+      1004 Shikha             20 Pauri            5002 05-NOV-24       1001
+      1004 Shikha             20 Pauri            5003 27-FEB-24       1004
+      1004 Shikha             20 Pauri            5004 08-JUN-24       1003
+
+25 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.cust_name, co.order_id from customer c JOIN customer c2 ON c.address = c2.address and  c.cust_id != c2.cust_id JOIN custorder co ON c.cust_id = co.cust_id;
+
+CUST_NAME    ORDER_ID
+---------- ----------
+Akanksha         5000
+Akanksha         5002
+Shikha           5003
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select c.cust_name, co.order_id from customer c JOIN customer c2 ON c.address = c2.address
+  2  and  c.cust_id != c2.cust_id JOIN custorder co ON c.cust_id = co.cust_id;
+
+CUST_NAME    ORDER_ID
+---------- ----------
+Akanksha         5000
+Akanksha         5002
+Shikha           5003

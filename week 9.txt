@@ -1,0 +1,367 @@
+week 9
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> -- Q1. Create the Student table, Register table and Program table. Student table - ( Roll no. as primary key, Name as not null, city)
+SQL> --Program table - ( Program ID as primary key, Program Name as not null, Program Fee not less than 10000, Department)
+SQL> --Register table - ( Program ID and Roll no. as primary composite key)
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table student(rollno number Primary Key, name varchar2(10) NOT NULL, city varchar2(10))
+  2  create table program(programid number Primary Key, Programname varchar2(10) NOT NULL, ProgrammeFee number check (ProgrammeFee >= 10000), Department varchar2(10));
+create table program(programid number Primary Key, Programname varchar2(10) NOT NULL, ProgrammeFee number check (ProgrammeFee >= 10000), Department varchar2(10))
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> create table register(programid number references program(programid), rollno number references student(rollno), Primary Key(programid, rollno))
+  2  show user
+  3  ;
+show user
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table student(rollno number Primary Key, name varchar2(10) NOT NULL, city varchar2(10))
+  2  create table program(programid number Primary Key, Programname varchar2(10) NOT NULL, ProgrammeFee number check (ProgrammeFee >= 10000), Department varchar2(10));
+create table program(programid number Primary Key, Programname varchar2(10) NOT NULL, ProgrammeFee number check (ProgrammeFee >= 10000), Department varchar2(10))
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> create table register(programid number, rollno number, Primary Key(programid, rollno), programid number references program(programid), rollno number references student(rollno))
+  2
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table student(rollno number Primary Key, name varchar2(10) NOT NULL, city varchar2(10));
+
+Table created.
+
+SQL> create table program(programid number Primary Key, Programname varchar2(10) NOT NULL, ProgrammeFee number check (ProgrammeFee >= 10000), Department varchar2(10));
+
+Table created.
+
+SQL> create table register(programid number, rollno number, Primary Key(programid, rollno), programid number references program(programid), rollno number references student(rollno));
+create table register(programid number, rollno number, Primary Key(programid, rollno), programid number references program(programid), rollno number references student(rollno))
+                                                                                       *
+ERROR at line 1:
+ORA-00957: duplicate column name
+
+
+SQL> drop table student
+  2  ;
+
+Table dropped.
+
+SQL> drop table register
+  2  ;
+drop table register
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> delete table register;
+delete table register
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> delete table program
+  2  ;
+delete table program
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> delete program;
+
+0 rows deleted.
+
+SQL> drop table program;
+
+Table dropped.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table student(rollno number Primary Key, name varchar2(10) NOT NULL, city varchar2(10));
+
+Table created.
+
+SQL> create table program(programid number Primary Key, Programname varchar2(10) NOT NULL, ProgrammeFee number check (ProgrammeFee >= 10000), Department varchar2(10));
+
+Table created.
+
+SQL> create table register(programid number, rollno number, Primary Key(programid, rollno), programid references program(programid), rollno references student(rollno));
+create table register(programid number, rollno number, Primary Key(programid, rollno), programid references program(programid), rollno references student(rollno))
+                                                                                       *
+ERROR at line 1:
+ORA-00957: duplicate column name
+
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> drop table program
+  2  ;
+
+Table dropped.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> create table student(rollno number Primary Key, name varchar2(10) NOT NULL, city varchar2(10));
+
+Table created.
+
+SQL> create table program(programid number Primary Key, Programname varchar2(10) NOT NULL, ProgrammeFee number check (ProgrammeFee >= 10000), Department varchar2(10));
+
+Table created.
+
+SQL> create table register(programid number, rollno number, Primary Key(programid, rollno), FOREIGN KEY(programid) references program(programid), FOREIGN KEY(rollno) references student(rollno));
+
+Table created.
+
+SQL> insert all
+  2  into student(rollno, name, city) values(11, 'Kiran', 'USA')
+  3  into student(rollno, name, city) values(12, 'Akanksha', 'Pauri')
+  4  into student(rollno, name, city) values(13, 'Gunjan', 'Kotdwar')
+  5  into student(rollno, name, city) values(14, 'Shikha', 'up')
+  6  into student(rollno, name, city) values(15, 'Swati', 'Bihar')
+  7  into student(rollno, name, city) values(16, 'Astha', 'Doon')
+  8  into student(rollno, name, city) values(17, 'Rajan', 'Roorkee')
+  9  into student(rollno, name, city) values(18, 'Amit', 'patna')
+ 10  select* from dual;
+
+8 rows created.
+
+SQL> select* from student;
+
+    ROLLNO NAME       CITY
+---------- ---------- ----------
+        11 Kiran      USA
+        12 Akanksha   Pauri
+        13 Gunjan     Kotdwar
+        14 Shikha     up
+        15 Swati      Bihar
+        16 Astha      Doon
+        17 Rajan      Roorkee
+        18 Amit       patna
+
+8 rows selected.
+
+SQL> insert all
+  2  into program values(101, 'Btech', 190000, 'CS')
+  3  into program values(102, 'MCA', 80000, 'CS')
+  4  into program values(103, 'Bsc', 50000, 'Maths')
+  5  into program values(104, 'BBA', 45000, 'Commerce')
+  6  select* from dual;
+
+4 rows created.
+
+SQL> select* from program;
+
+ PROGRAMID PROGRAMNAM PROGRAMMEFEE DEPARTMENT
+---------- ---------- ------------ ----------
+       101 Btech            190000 CS
+       102 MCA               80000 CS
+       103 Bsc               50000 Maths
+       104 BBA               45000 Commerce
+
+SQL> insert all
+  2  into register values(104, 11)
+  3  into register values(102, 14)
+  4  into register values(101, 12)
+  5  into register values(104, 13)
+  6  into register values(102, 17)
+  7  into register values(101, 15)
+  8  into register values(103, 16)
+  9  into register values(102, 11)
+ 10  select* from dual;
+
+8 rows created.
+
+SQL> select* from register;
+
+ PROGRAMID     ROLLNO
+---------- ----------
+       104         11
+       102         14
+       101         12
+       104         13
+       102         17
+       101         15
+       103         16
+       102         11
+
+8 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select s* from student s JOIN register r on s.rollno = r.rollno JOIN
+  2  program p on r.programid = p.programid where p.Programname = 'MCA';
+select s* from student s JOIN register r on s.rollno = r.rollno JOIN
+          *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from student where rollno in(select r1.rollno from register r1 inner join
+  2  program p1 on r1.programid = p1.programid where p1.Programname = 'MCA');
+
+    ROLLNO NAME       CITY
+---------- ---------- ----------
+        11 Kiran      USA
+        14 Shikha     up
+        17 Rajan      Roorkee
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from student where rollno in(select r1.rollno from register r1 inner join
+  2
+SQL> select s.* from student JOIN register r on s.rollno = r.rollno program p on r.programid = p.programid where p.programname = 'MCA';
+select s.* from student JOIN register r on s.rollno = r.rollno program p on r.programid = p.programid where p.programname = 'MCA'
+                                                               *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select s.* from student s JOIN register r on s.rollno = r.rollno JOIN program p on r.programid = p.programid where p.programname ='MCA';
+
+    ROLLNO NAME       CITY
+---------- ---------- ----------
+        11 Kiran      USA
+        14 Shikha     up
+        17 Rajan      Roorkee
+
+SQL> select * from student where rollno in(select r1.rollno from register r1 JOIN program p1 r1.programid = p1.programid where p1.programname ='MCA';
+select * from student where rollno in(select r1.rollno from register r1 JOIN program p1 r1.programid = p1.programid where p1.programname ='MCA'
+                                                                                        *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> select* from student where rollno in(select r1.rollno from register r1.JOIN program p1 on r1.programid = p1.programid where p1.programname ='MCA';
+select* from student where rollno in(select r1.rollno from register r1.JOIN program p1 on r1.programid = p1.programid where p1.programname ='MCA'
+                                                                      *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL>  select* from student where rollno in(select r1.rollno from register r1 JOIN program p1 on r1.programid = p1.programid where p1.programname ='MCA';
+ select* from student where rollno in(select r1.rollno from register r1 JOIN program p1 on r1.programid = p1.programid where p1.programname ='MCA'
+                                                                                                                                                 *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL>  select* from student where rollno in(select r1.rollno from register r1 JOIN program p1 on r1.programid = p1.programid where p1.programname ='MCA');
+
+    ROLLNO NAME       CITY
+---------- ---------- ----------
+        11 Kiran      USA
+        14 Shikha     up
+        17 Rajan      Roorkee
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select rollno, name from student where rollno in(select rollno from register);
+
+    ROLLNO NAME
+---------- ----------
+        11 Kiran
+        14 Shikha
+        12 Akanksha
+        13 Gunjan
+        17 Rajan
+        15 Swati
+        16 Astha
+
+7 rows selected.
+
+SQL> select s.rollno, s.name from student s JOIN register r on s.rollno = r.rollno;
+
+    ROLLNO NAME
+---------- ----------
+        11 Kiran
+        14 Shikha
+        12 Akanksha
+        13 Gunjan
+        17 Rajan
+        15 Swati
+        16 Astha
+        11 Kiran
+
+8 rows selected.
+
+SQL> select distinct s.rollno, s.name from student s JOIN register r on s.rollno = r.rollno;
+
+    ROLLNO NAME
+---------- ----------
+        17 Rajan
+        16 Astha
+        15 Swati
+        14 Shikha
+        11 Kiran
+        13 Gunjan
+        12 Akanksha
+
+7 rows selected.
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from program where programfee > (select avg(programfee)
+  2
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from program where programfee > (select avg(programfee) from program);
+select* from program where programfee > (select avg(programfee) from program)
+                           *
+ERROR at line 1:
+ORA-00904: "PROGRAMFEE": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from program where programfee > (select avg(programfee) from program);
+select* from program where programfee > (select avg(programfee) from program)
+                           *
+ERROR at line 1:
+ORA-00904: "PROGRAMFEE": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> select* from program where programfee > (select avg(programfee) from program);
+select* from program where programfee > (select avg(programfee) from program)
+                           *
+ERROR at line 1:
+ORA-00904: "PROGRAMFEE": invalid identifier
+
+
+SQL> show user
+USER is "AKANKSHANEGI_5"
+SQL> SELECT * FROM program WHERE programme_fee > (SELECT AVG(programme_fee) FROM program);
+SELECT * FROM program WHERE programme_fee > (SELECT AVG(programme_fee) FROM program)
+                            *
+ERROR at line 1:
+ORA-00904: "PROGRAMME_FEE": invalid identifier
+
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> commit;
+
+Commit complete.
